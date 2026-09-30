@@ -72,7 +72,7 @@ node -e "const fs=require('fs'),c=require('crypto');fs.writeFileSync('theme/deep
 node scripts/theme.mjs check
 ```
 
-SVG 源修改后需同步 CSS 内嵌版本。发布包不包含开发机完整基础快照、聊天截图、日志、账户配置或 `.lnk` 快捷方式；第三方基础主题请从原项目获取。
+SVG 源修改后需同步 CSS 内嵌版本。发布包不包含开发机完整基础快照、未经授权的聊天截图、日志、账户配置或 `.lnk` 快捷方式；第三方基础主题请从原项目获取。
 
 ## License / Credits
 
