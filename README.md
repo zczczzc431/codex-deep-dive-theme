@@ -2,9 +2,11 @@
 
 为 Codex 桌面版制作的赛博朋克外观扩展：酒红与近黑背景、珊瑚红切角面板、青色选中状态、工业输入框、额度 RAM 分段条和荒坂风格背景水印。
 
-![Design preview — illustrative, not a Codex screenshot](docs/preview.svg)
+![Codex 深潜协议主题实际效果](docs/codex-deep-dive-screenshot.png)
 
-这张图是设计示意图。实际界面取决于 Codex 版本、窗口大小和基础主题。
+以上为用户提供并授权发布的实际效果图，展示对话卡片、内容面板、输入框、背景水印和额度 RAM 条。实际界面取决于 Codex 版本、窗口大小和基础主题。
+
+[查看设计示意图](docs/preview.svg)
 
 ## 能做什么
 
