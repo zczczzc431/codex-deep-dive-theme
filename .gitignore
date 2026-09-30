@@ -1,0 +1,8 @@
+node_modules/
+backups/
+logs/
+*.log
+.env
+.env.*
+*.lnk
+*.zip

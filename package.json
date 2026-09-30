@@ -1,0 +1,14 @@
+{
+  "name": "codex-deep-dive-theme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "check": "node scripts/theme.mjs check",
+    "apply": "node scripts/theme.mjs apply",
+    "status": "node scripts/theme.mjs status",
+    "remove": "node scripts/theme.mjs remove"
+  }
+}

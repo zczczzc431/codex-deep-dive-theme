@@ -1,0 +1,375 @@
+
+/* ===== v6: Cyberpunk 2077 terminal HUD language =====
+ * Paint-only. No width/height/padding/margin/position/display declarations,
+ * so every control keeps its original footprint and hit box. Chamfers use
+ * clip-path; ambient graphics use background layers so they always paint
+ * behind the element's own content.
+ */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] {
+  --heige-wine: #2a0d12;
+  --heige-wine-deep: #1a0b10;
+  --heige-ink: #0a0507;
+  --heige-alert: #ff5858;
+  --heige-alert-deep: #b0333a;
+  --heige-cyan: #62e6f3;
+  --heige-cyan-deep: #1ba3b8;
+  --heige-amber: #ffd166;
+}
+
+/* ---------- 1. Panels: one chamfer language, two corner sizes ---------- */
+
+/* Right-hand summary / sources panel and the bottom-left account popover are
+ * the two visible "edge cards" of the window, so they ship identical chrome:
+ * wine plate, hard red spine, dashed baseline, 12px outer chamfer. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-summary-panel-variant],
+:root[data-heige-codex-skin="deep-dive-protocol"] [role="menu"],
+:root[data-heige-codex-skin="deep-dive-protocol"] [role="dialog"],
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-radix-popper-content-wrapper] > * {
+  background-color: color-mix(in srgb, var(--heige-wine-deep) 97%, transparent) !important;
+  background-image:
+    linear-gradient(90deg, var(--heige-alert) 0 3px, transparent 3px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--heige-alert) 58%, transparent) 0 8px, transparent 8px 16px),
+    linear-gradient(135deg, color-mix(in srgb, var(--heige-alert) 22%, transparent) 0 12px, transparent 12px),
+    repeating-linear-gradient(60deg, color-mix(in srgb, var(--heige-cyan) 5%, transparent) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(-60deg, color-mix(in srgb, var(--heige-cyan) 5%, transparent) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--heige-alert) 3%, transparent) 0 1px, transparent 1px 9px) !important;
+  background-size: 100% 100%, 100% 2px, 26px 26px, auto, auto, auto !important;
+  background-position: 0 0, 0 100%, 100% 0, 0 0, 0 0, 0 0 !important;
+  background-repeat: no-repeat, repeat-x, no-repeat, repeat, repeat, repeat !important;
+  border: 1px solid color-mix(in srgb, var(--heige-alert) 50%, transparent) !important;
+  border-radius: 0 !important;
+  clip-path: polygon(
+    12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px
+  ) !important;
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--heige-alert) 20%, transparent),
+    inset 0 0 30px color-mix(in srgb, var(--heige-alert) 6%, transparent) !important;
+}
+
+/* Row dividers inside those panels become broken signal rails. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-summary-panel-variant] section {
+  border-bottom-color: color-mix(in srgb, var(--heige-alert) 32%, transparent) !important;
+}
+
+/* Indented submenus keep the same edge but a shorter chamfer, so the nesting
+ * reads as depth instead of a second visual system. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [role="menuitem"]:hover,
+:root[data-heige-codex-skin="deep-dive-protocol"] [role="menuitem"]:focus-visible {
+  border-radius: 0 !important;
+}
+
+/* ---------- 2. Shell surfaces: square corners + circuit traces ---------- */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [class*="_PageSurface_"],
+:root[data-heige-codex-skin="deep-dive-protocol"] [class*="_MainContentSurface_"] {
+  border-radius: 0 !important;
+}
+
+/* Circuit traces: step lines along the top edge, cyan bus on the right. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-shell-main-surface] {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2ODAiIGhlaWdodD0iNzgwIiB2aWV3Qm94PSIwIDAgNjgwIDc4MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InJlZCIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjZmY2NzU4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYjMxYzI3Ii8+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGcgb3BhY2l0eT0iLjE5IiBmaWxsPSJ1cmwoI3JlZCkiIHN0cm9rZT0iI2ZmNTM0YiIgc3Ryb2tlLXdpZHRoPSIyIj4KICAgIDxjaXJjbGUgY3g9IjM0MCIgY3k9IjMxMCIgcj0iMjY5IiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjE3Ii8+CiAgICA8Y2lyY2xlIGN4PSIzNDAiIGN5PSIzMTAiIHI9IjI4NyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cGF0aCBkPSJNMzI0IDU0NFYyNDhMMzEwIDIzNEE3OCA3OCAwIDEgMSAzNzAgMjM0TDM1NiAyNDhWNTQ0TDM0MCA1NjBaIi8+CiAgICA8cGF0aCBkPSJNMzA2IDU0MVYzNjRMMjY0IDMyMkE3OCA3OCAwIDEgMSAyODYgMjgwTDMxNiAzMTJWNTQxWiIvPgogICAgPHBhdGggZD0iTTM2NCA1NDFWMzEyTDM5NCAyODBBNzggNzggMCAxIDEgNDE2IDMyMkwzNzQgMzY0VjU0MVoiLz4KICAgIDxwYXRoIGQ9Ik0yOCA2MTlINjUyTTU4IDc0NEgyNDhNNDMyIDc0NEg2MjIiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPHRleHQgeD0iMzQwIiB5PSI2OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHN0cm9rZT0ibm9uZSIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iODIiIGZvbnQtd2VpZ2h0PSI5MDAiIGxldHRlci1zcGFjaW5nPSIzIj5BUkFTQUtBPC90ZXh0PgogICAgPHRleHQgeD0iMzQwIiB5PSI3NTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHN0cm9rZT0ibm9uZSIgZm9udC1mYW1pbHk9Ik1pY3Jvc29mdCBZYUhlaSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjQ0IiBsZXR0ZXItc3BhY2luZz0iMTQiPuiNkuWdgjwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo="),
+    linear-gradient(90deg, var(--heige-alert) 0 132px, transparent 132px),
+    linear-gradient(270deg, var(--heige-cyan) 0 96px, transparent 96px),
+    linear-gradient(180deg, color-mix(in srgb, var(--heige-alert) 9%, transparent), transparent 42%),
+    radial-gradient(circle at 96% 100%, transparent 0 150px, color-mix(in srgb, var(--heige-alert) 14%, transparent) 150px 151px, transparent 151px 168px, color-mix(in srgb, var(--heige-alert) 8%, transparent) 168px 169px, transparent 169px),
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--heige-alert) 4%, transparent) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(60deg, color-mix(in srgb, var(--heige-cyan) 3%, transparent) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(-60deg, color-mix(in srgb, var(--heige-cyan) 3%, transparent) 0 1px, transparent 1px 17px) !important;
+  background-size: min(52vw, 530px) auto, 100% 2px, 100% 2px, auto, 340px 340px, auto, auto, auto !important;
+  background-position: center 48%, 0 0, 100% 0, 0 0, right bottom, 0 0, 0 0, 0 0 !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat !important;
+}
+
+/* ---------- 3. Content cards: no soft rounding left ---------- */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-conversation],
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-target] {
+  border-radius: 2px !important;
+}
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [class*="rounded-3xl"],
+:root[data-heige-codex-skin="deep-dive-protocol"] [class*="rounded-2xl"] {
+  border-radius: 3px !important;
+}
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [class*="rounded-xl"] {
+  border-radius: 2px !important;
+}
+
+/* ---------- 4. Sidebar: circuit spine, index ticks, hex mesh ---------- */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] .app-shell-left-panel {
+  background-image:
+    repeating-linear-gradient(60deg, color-mix(in srgb, var(--heige-cyan) 4%, transparent) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(-60deg, color-mix(in srgb, var(--heige-cyan) 4%, transparent) 0 1px, transparent 1px 17px),
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--heige-alert) 52%, transparent) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, color-mix(in srgb, var(--heige-wine-deep) 98%, transparent), color-mix(in srgb, var(--heige-ink) 96%, transparent)) !important;
+  background-size: auto, auto, 4px 100%, 100% 100% !important;
+  background-repeat: repeat, repeat, no-repeat, no-repeat !important;
+  background-position: 0 0, 0 0, right 7px top 0, 0 0 !important;
+  border-right-color: color-mix(in srgb, var(--heige-alert) 72%, transparent) !important;
+  box-shadow:
+    inset -1px 0 0 color-mix(in srgb, var(--heige-alert) 70%, transparent),
+    inset -14px 0 26px -18px color-mix(in srgb, var(--heige-alert) 90%, transparent) !important;
+}
+
+/* ---------- 5. Composer: hard chamfer, protocol bar, hatch ---------- */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-composer-dark][data-composer-layout][class*="ComposerLayoutRoot"] {
+  background-color: var(--heige-wine-deep) !important;
+  background-image:
+    linear-gradient(90deg, var(--heige-alert) 0 3px, transparent 3px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--heige-alert) 55%, transparent) 0 9px, transparent 9px 18px),
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--heige-alert) 4%, transparent) 0 1px, transparent 1px 9px),
+    linear-gradient(135deg, color-mix(in srgb, var(--heige-alert) 20%, transparent) 0 14px, transparent 14px) !important;
+  background-size: 100% 100%, 100% 2px, auto, 28px 28px !important;
+  background-position: 0 0, 0 100%, 0 0, 100% 0 !important;
+  background-repeat: no-repeat, repeat-x, repeat, no-repeat !important;
+  border-color: color-mix(in srgb, var(--heige-alert) 62%, transparent) !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--heige-alert) 42%, transparent),
+    inset 0 0 34px color-mix(in srgb, var(--heige-alert) 7%, transparent),
+    0 12px 28px #08070a !important;
+}
+
+/* Quota-only RAM array: cyan remaining, coral used, fractional boundary cell. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-heige-usage-bar].codex-quota-ram {
+  display: flex !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+  width: calc(100% - 24px) !important;
+  height: 40px !important;
+  margin: 5px 0 2px 24px !important;
+  padding: 4px 5px !important;
+  gap: 3px !important;
+  background: #0b181d !important;
+  border: 1px solid #3ac7d955 !important;
+  clip-path: polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px) !important;
+  box-shadow: inset 0 0 9px #62e6f312 !important;
+  filter: none !important;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] .codex-quota-ram > i {
+  position: relative !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  clip-path: polygon(18% 0,85% 0,100% 6%,100% 80%,54% 100%,0 100%,0 89%,32% 76%,32% 67%,6% 60%,6% 7%) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(180deg,#ffffff55 0 1px,transparent 1px),linear-gradient(90deg,transparent 68%,#00000033 68%),linear-gradient(90deg,#6be9f7 0 var(--ram-fill),#ff5548 var(--ram-fill) 100%) !important;
+  background-size: 100% 100% !important;
+  box-shadow: inset 0 0 0 1px #ffffff55 !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] .codex-quota-ram > i::before {
+  content: '' !important;
+  position: absolute !important;
+  width: 29% !important;
+  height: auto !important;
+  aspect-ratio: 1 !important;
+  left: 34% !important;
+  top: 9% !important;
+  border-radius: 50% !important;
+  background: #082b33 !important;
+  box-shadow: 0 0 0 1px #ffffff30 !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] .codex-quota-ram > i[data-used="true"]::before { background: #4a1110 !important; }
+:root[data-heige-codex-skin="deep-dive-protocol"] .codex-quota-ram > i::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 1px !important;
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  border-left: 1px solid #ffffff66 !important;
+  border-bottom: 1px solid #0a4c5677 !important;
+  clip-path: polygon(0 0,100% 0,100% 80%,52% 100%,0 100%,0 90%,35% 78%,35% 64%,0 57%) !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [role="menuitem"]:has(> .codex-quota-ram) {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+/* ---------- 6. Micro details: tabular numerals, cyan focus, tick rail ---------- */
+
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-heige-usage-bar],
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-heige-usage-bar] * {
+  font-variant-numeric: tabular-nums !important;
+}
+
+:root[data-heige-codex-skin="deep-dive-protocol"] :is(input, textarea, [contenteditable="true"]):focus-visible {
+  outline-color: var(--heige-cyan) !important;
+}
+
+/* Thin cyan measurement rail along the bottom of the window frame. */
+:root[data-heige-codex-skin="deep-dive-protocol"] #root {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--heige-cyan) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--heige-alert) 4%, transparent) 1px, transparent 1px),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--heige-cyan) 26%, transparent) 0 6px, transparent 6px 22px),
+    radial-gradient(ellipse at 2% 88%, color-mix(in srgb, var(--heige-alert) 22%, transparent), transparent 44%),
+    radial-gradient(ellipse at 98% 6%, color-mix(in srgb, var(--heige-alert) 12%, transparent), transparent 40%),
+    linear-gradient(180deg, #080609, #1b0d14 52%, #0d090f) !important;
+  background-size: 64px 64px, 64px 64px, 100% 2px, auto, auto, auto !important;
+  background-position: 0 0, 0 0, 0 100%, 0 0, 0 0, 0 0 !important;
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat !important;
+}
+
+/* 2026-09-30: only the native conversation-rail preview, geometry preserved.
+   Decorations stay in the existing 8px padding; no synthetic controls. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-thread-user-message-navigation-tooltip-preview] {
+  position: relative !important;
+  background: #ff6b57 !important;
+  background-image: linear-gradient(90deg, transparent 5px, #2a1014 5px, #2a1014 6px, transparent 6px), linear-gradient(180deg, rgba(255,255,255,.05), transparent 65%) !important;
+  color: #210d12 !important;
+  border-radius: 0 !important;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 6px 100%, 0 calc(100% - 6px), 0 59%, 4px 59%, 4px 54%, 0 54%, 0 6px) !important;
+  box-shadow: inset 0 0 0 1px #8a3a37 !important;
+  text-shadow: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-thread-user-message-navigation-tooltip-preview] * {
+  color: #210d12 !important;
+  text-shadow: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-thread-user-message-navigation-tooltip-preview]::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 1px; top: 12px; bottom: 10px; width: 3px;
+  background: linear-gradient(#2a1014,#2a1014) left 40% / 3px 3px no-repeat, linear-gradient(#2a1014,#2a1014) left 70% / 3px 9px no-repeat;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-thread-user-message-navigation-tooltip-preview]::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 8px; right: 9px; bottom: 1px; height: 4px;
+  background: repeating-linear-gradient(135deg, #2a1014 0 5px, transparent 5px 10px) !important;
+  pointer-events: none !important;
+}
+
+/* Native chat rows: paint only. No extra labels, icons, padding or hit clipping. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] {
+  --dd-option-ink: #ff6b6b;
+  --dd-option-frame: #ff383b;
+  border-radius: 0 !important;
+  border-color: transparent !important;
+  background: linear-gradient(110deg, #17090b, #0b0708 65%, #281013) !important;
+  box-shadow: none !important;
+  color: var(--dd-option-ink) !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 1px !important;
+  background: var(--dd-option-frame) !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 28' preserveAspectRatio='none'%3E%3Cpath d='M8 1H218V18L209 27H8L1 20V8Z M1 10V18 M218 2V17' fill='none' stroke='white' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat !important;
+  pointer-events: none !important;
+  opacity: .85 !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row]::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 2px !important; top: 3px !important; bottom: 11px !important; width: 3px !important;
+  background: var(--dd-option-frame) !important;
+  box-shadow: 0 0 5px color-mix(in srgb, var(--dd-option-frame) 35%, transparent) !important;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] [data-thread-title-trigger],
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] [data-thread-title] *,
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] [data-thread-title],
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] button,
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row] [role="status"] {
+  color: var(--dd-option-ink) !important;
+  text-shadow: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-app-action-sidebar-thread-row]:is(:hover,:focus-visible,[data-app-action-sidebar-thread-selected="true"]) {
+  --dd-option-ink: #50e4ee;
+  --dd-option-frame: #00e5ff;
+  background: linear-gradient(110deg, #07171b, #080b0e 65%, #10303a) !important;
+}
+
+/* Industrial composer: all decoration paints inside the existing footprint. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-composer-dark][data-composer-layout][class*="ComposerLayoutRoot"] {
+  position: relative !important;
+  border-radius: 0 !important;
+  border-color: transparent !important;
+  clip-path: none !important;
+  background-color: #16090d !important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 14' preserveAspectRatio='none'%3E%3Cpath d='M1 12H350L362 1H640L652 12H999' fill='none' stroke='%23ff4b4b' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M16 3H90L94 6H16Z M931 2H979L975 5H939Z' fill='%23ff6e56'/%3E%3C/svg%3E"),
+    linear-gradient(110deg, rgba(138,42,42,.18), transparent 45%, rgba(138,42,42,.11)),
+    repeating-linear-gradient(135deg, rgba(255,75,75,.022) 0 1px, transparent 1px 14px) !important;
+  background-size: 100% 12px, 100% 100%, auto !important;
+  background-position: 0 0, 0 0, 0 0 !important;
+  background-repeat: no-repeat, no-repeat, repeat !important;
+  box-shadow: inset 1px 0 #8a2a2a, inset -1px 0 #8a2a2a, inset 0 -1px #ff4b4b !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-composer-dark][data-composer-layout][class*="ComposerLayoutRoot"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: #ff4b4b !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M1 17V5L8 1H120 M880 1H992L999 5V17 M1 82V95L8 99H85 M915 99H992L999 95V82' fill='none' stroke='white' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat !important;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-composer-dark][data-composer-layout][class*="ComposerLayoutRoot"]::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 6px !important; right: 6px !important; bottom: 2px !important; height: 5px !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 6'%3E%3Cpath d='M1 1H10V5Z M12 1V5H3Z M14 1H23V5Z M16 5H23V1Z' fill='%23ff6e56'/%3E%3C/svg%3E") left center / 24px 5px repeat-x !important;
+  opacity: .8 !important;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-composer-dark][data-composer-layout][class*="ComposerLayoutRoot"]:focus-within {
+  box-shadow: inset 1px 0 #ff4b4b, inset -1px 0 #ff4b4b, inset 0 -1px #ff6e56, 0 0 10px rgba(255,75,75,.07) !important;
+}
+
+/* Native assistant content panel; keep reading order and action controls. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-target]:has(> [data-markdown-text-style="assistant-message"]) {
+  position: relative !important;
+  min-width: 0 !important;
+  border-radius: 0 !important;
+  border-color: rgba(224,84,78,.42) !important;
+  background-color: rgba(13,10,13,.95) !important;
+  background-image: linear-gradient(110deg, rgba(42,18,22,.55), transparent 65%) !important;
+  box-shadow: inset 2px 0 rgba(224,84,78,.65), inset -1px 0 rgba(224,84,78,.22) !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-target]:has(> [data-markdown-text-style="assistant-message"])::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 5px !important; right: 5px !important; top: 1px !important; height: 10px !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 10' preserveAspectRatio='none'%3E%3Cpath d='M0 0H150L160 5L150 10H0Z' fill='%23e0544e'/%3E%3Cpath d='M160 5H981L986 9' fill='none' stroke='%23e0544e' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3Ccircle cx='991' cy='5' r='2.5' fill='%23ff7b6b'/%3E%3C/svg%3E") center / 100% 10px no-repeat !important;
+  pointer-events: none !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-target]:has(> [data-markdown-text-style="assistant-message"])::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  background: #e0544e !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M1 12V90L8 99H976L999 91V8L991 1H880 M7 15V89L14 96H974L992 88V14' fill='none' stroke='white' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat !important;
+  pointer-events: none !important;
+  opacity: .7 !important;
+}
+/* Constrain the media and its native zoom button, not the whole reply.
+   Images retain aspect ratio; code/table scrolling and zoom dialogs stay native. */
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-response-annotation-target] > [data-markdown-text-style="assistant-message"] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-markdown-text-style="assistant-message"] :is(p,figure):has(img),
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-markdown-text-style="assistant-message"] :is(button,a):has(> img) {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+:root[data-heige-codex-skin="deep-dive-protocol"] [data-markdown-text-style="assistant-message"] img {
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  object-fit: contain !important;
+}

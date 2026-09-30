@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="780" viewBox="0 0 680 780">
+  <defs>
+    <linearGradient id="red" x2="0" y2="1"><stop stop-color="#ff6758"/><stop offset="1" stop-color="#b31c27"/></linearGradient>
+  </defs>
+  <g opacity=".19" fill="url(#red)" stroke="#ff534b" stroke-width="2">
+    <circle cx="340" cy="310" r="269" fill="none" stroke-width="17"/>
+    <circle cx="340" cy="310" r="287" fill="none" stroke-width="1"/>
+    <path d="M324 544V248L310 234A78 78 0 1 1 370 234L356 248V544L340 560Z"/>
+    <path d="M306 541V364L264 322A78 78 0 1 1 286 280L316 312V541Z"/>
+    <path d="M364 541V312L394 280A78 78 0 1 1 416 322L374 364V541Z"/>
+    <path d="M28 619H652M58 744H248M432 744H622" fill="none" stroke-width="1"/>
+    <text x="340" y="699" text-anchor="middle" stroke="none" font-family="Arial Black,Arial,sans-serif" font-size="82" font-weight="900" letter-spacing="3">ARASAKA</text>
+    <text x="340" y="759" text-anchor="middle" stroke="none" font-family="Microsoft YaHei,sans-serif" font-size="44" letter-spacing="14">荒坂</text>
+  </g>
+</svg>

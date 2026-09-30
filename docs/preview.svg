@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="580" viewBox="0 0 1000 580">
+<rect width="1000" height="580" fill="#0d080d"/>
+<g fill="none" stroke="#542029" opacity=".4"><path d="M0 100H1000M0 200H1000M0 300H1000M0 400H1000M0 500H1000M100 0V580M200 0V580M300 0V580M400 0V580M500 0V580M600 0V580M700 0V580M800 0V580M900 0V580"/></g>
+<g font-family="sans-serif">
+<text x="32" y="46" fill="#ff6b6b" font-size="28" font-weight="bold">DEEP DIVE / CODEX</text>
+<text x="970" y="40" text-anchor="end" fill="#62e6f3" font-size="13">THEME DESIGN PREVIEW</text>
+<g stroke="#e0544e" fill="#180a10"><path d="M36 90H240V134L226 146H36L26 136V100Z"/><path d="M36 158H240V202L226 214H36L26 204V168Z"/><path d="M36 226H240V270L226 282H36L26 272V236Z"/></g>
+<path d="M36 158H240V202L226 214H36L26 204V168Z" stroke="#00e5ff" fill="#082027"/>
+<g font-size="19"><text x="42" y="124" fill="#ff6b6b">Project Alpha</text><text x="42" y="192" fill="#62e6f3">Deep Dive Theme</text><text x="42" y="260" fill="#ff6b6b">New conversation</text></g>
+<path d="M285 91H961V306L946 321H285Z" fill="#100a0d" stroke="#e0544e"/>
+<path d="M290 94H428L438 104L428 114H290Z" fill="#e0544e"/>
+<path d="M439 104H945L954 113V298L940 312H293V121" fill="none" stroke="#8a3a3a"/>
+<circle cx="949" cy="104" r="3" fill="#ff7b6b"/>
+<text x="309" y="152" fill="#f2e9e6" font-size="23">A precise, restrained hacker terminal.</text>
+<text x="309" y="190" fill="#f2e9e6" font-size="17">Native controls. Chamfered panels. Clear content.</text>
+<text x="309" y="230" fill="#ffd166" font-size="16">Tools running · keep the original interaction</text>
+<text x="309" y="282" fill="#62e6f3" font-size="15">CYAN SIGNAL / CORAL WARNING / WINE SHADOW</text>
+<g fill="#62e6f3"><rect x="29" y="354" width="14" height="30"/><rect x="49" y="354" width="14" height="30"/><rect x="69" y="354" width="14" height="30"/><rect x="89" y="354" width="14" height="30"/><rect x="109" y="354" width="14" height="30"/><rect x="129" y="354" width="14" height="30"/><rect x="149" y="354" width="14" height="30"/></g>
+<g fill="#ff6b57"><rect x="169" y="354" width="14" height="30"/><rect x="189" y="354" width="14" height="30"/><rect x="209" y="354" width="14" height="30"/></g>
+<text x="29" y="412" fill="#62e6f3" font-size="14">RAM QUOTA · ILLUSTRATIVE</text>
+<path d="M285 430H480L495 417H725L740 430H961V535H285Z" fill="#190b10" stroke="#ff4b4b"/>
+<path d="M293 422H371L378 427H293Z" fill="#ff6e56"/>
+<text x="306" y="465" fill="#a58e90" font-size="18">Enter your message…</text>
+<text x="307" y="511" fill="#ffab70" font-size="20">+  Permissions</text>
+<text x="760" y="511" fill="#f2e9e6" font-size="17">Model ▾</text>
+<circle cx="933" cy="504" r="16" fill="#62e6f3"/><path d="M933 512V497M927 503L933 497L939 503" fill="none" stroke="#0b181d" stroke-width="2"/>
+<path d="M292 529H954" stroke="#ff6e56" stroke-width="4" stroke-dasharray="10 4"/>
+</g></svg>
