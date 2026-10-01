@@ -5,14 +5,48 @@
   const usagePattern = /^(?:5\s*小时|每周|1\s*周|5\s*hour|weekly)(?=\s|[\d%]|$)/i;
   const findUsageRows = () => {
     const rows = [];
+    // Prefer the live menu rows themselves. In recent Codex builds the menu is
+    // rendered in a portal and its ancestor also contains the chat transcript;
+    // attaching to that ancestor produces zero-sized or off-screen bars.
+    for (const menu of document.querySelectorAll('[role="menu"]')) {
+      const candidates = [...menu.querySelectorAll('*')].filter(element => {
+        const text = (element.textContent ?? '').trim().replace(/\s+/g, ' ');
+        const rect = element.getBoundingClientRect?.();
+        return Boolean(rect && rect.width > 0 && rect.height > 0 && (
+          /(?:5\s*小时|5\s*hour)\s*[\d.]+\s*%/i.test(text) ||
+          /(?:1\s*周|每周|weekly)\s*[\d.]+\s*%/i.test(text)
+        ));
+      });
+      for (const pattern of [
+        {kind: 'five-hour', re: /(?:5\s*小时|5\s*hour)\s*([\d.]+)\s*%/i, label: '5 小时'},
+        {kind: 'weekly', re: /(?:1\s*周|每周|weekly)\s*([\d.]+)\s*%/i, label: '每周'},
+      ]) {
+        const candidate = candidates
+          .filter(element => pattern.re.test((element.textContent ?? '').replace(/\s+/g, ' ')))
+          .sort((a, b) => (a.textContent ?? '').length - (b.textContent ?? '').length)[0];
+        if (!candidate) continue;
+        const match = pattern.re.exec((candidate.textContent ?? '').replace(/\s+/g, ' '));
+        const host = candidate.closest('[role="menuitem"],button') ?? candidate.parentElement ?? candidate;
+        rows.push({host, text: `${pattern.label} ${match[1]}%`});
+      }
+      if (rows.length) return rows;
+    }
+    // Never fall back to arbitrary ancestors in the document. Chat history can
+    // contain the words “5 小时” and “每周” and must never become a quota host.
+    return rows;
     const genericPanels = [...document.querySelectorAll('*')].filter(element => {
       const text = (element.textContent ?? '').trim().replace(/\s+/g, ' ');
       return text.includes('剩余用量') && /5\s*小时\s*[\d.]+\s*%/i.test(text) && /(?:1\s*周|每周)\s*[\d.]+\s*%/i.test(text);
     });
-    const genericPanel = genericPanels.find(element => ![...element.children].some(child => {
-      const text = (child.textContent ?? '').trim().replace(/\s+/g, ' ');
-      return text.includes('剩余用量') && /5\s*小时\s*[\d.]+\s*%/i.test(text);
-    }));
+    // The updated renderer nests the usage panel inside the whole chat tree.
+    // Pick the smallest visible element containing both quota rows so the bars
+    // are attached to the actual menu panel rather than a zero-sized ancestor.
+    const genericPanel = genericPanels
+      .filter(element => {
+        const rect = element.getBoundingClientRect?.();
+        return rect && rect.width > 0 && rect.height > 0;
+      })
+      .sort((a, b) => (a.textContent ?? '').length - (b.textContent ?? '').length)[0];
     if (genericPanel) {
       const host = genericPanel.closest('[role="menuitem"]') ?? genericPanel;
       const text = genericPanel.textContent.trim().replace(/\s+/g, ' ');
@@ -104,7 +138,7 @@
   document.addEventListener('click',queue,true);
   document.addEventListener('pointerup',queue,true);
   const timer = setInterval(refresh, 500);
-  window.__codexQuotaRAM = {version:4,refresh,dispose(){observer.disconnect();themeObserver.disconnect();clearInterval(timer);document.removeEventListener('visibilitychange',queue);document.removeEventListener('click',queue,true);document.removeEventListener('pointerup',queue,true);},status(){return [...document.querySelectorAll('.codex-quota-ram')].map(b=>({remaining:Number(b.dataset.remaining),window:b.dataset.quotaWindow??null,cells:b.children.length,fills:[...b.children].map(c=>c.style.getPropertyValue('--ram-fill'))}));}};
+  window.__codexQuotaRAM = {version:4,refresh,dispose(){observer.disconnect();themeObserver.disconnect();clearInterval(timer);document.removeEventListener('visibilitychange',queue);document.removeEventListener('click',queue,true);document.removeEventListener('pointerup',queue,true);document.querySelectorAll('[data-heige-usage-bar]').forEach(bar=>bar.remove());},status(){return [...document.querySelectorAll('.codex-quota-ram')].map(b=>({remaining:Number(b.dataset.remaining),window:b.dataset.quotaWindow??null,cells:b.children.length,fills:[...b.children].map(c=>c.style.getPropertyValue('--ram-fill'))}));}};
   refresh();
   return {installed:true,version:4,bars:window.__codexQuotaRAM.status()};
 })()
