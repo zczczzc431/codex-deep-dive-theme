@@ -22,7 +22,7 @@ if(action==='check'){
 }
 const targets=await (await fetch(`http://127.0.0.1:${port}/json/list`,{signal:AbortSignal.timeout(5000)})).json();
 if(!Array.isArray(targets))throw Error('Invalid CDP target list');
-const matches=targets.filter(t=>t.type==='page'&&t.url==='app://-/index.html');
+const matches=targets.filter(t=>t.type==='page'&&typeof t.url==='string'&&t.url.startsWith('app://-/index.html'));
 if(matches.length>1)throw Error('Multiple Codex main renderers found; refusing to modify an ambiguous window.');
 const target=matches[0];
 if(!target)throw Error('Codex main renderer unavailable. Open Codex with loopback debugging enabled; this tool never starts or restarts it.');
