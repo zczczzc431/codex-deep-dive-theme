@@ -8,3 +8,6 @@ LICENSE text eol=lf
 *.css text eol=lf
 *.md text eol=lf
 *.cmd text eol=crlf
+# This approved snapshot has a byte-level SHA-256. Preserve its original
+# mixed newlines across Git checkout/archive; never silently normalize it.
+theme/deep-dive.css -text
