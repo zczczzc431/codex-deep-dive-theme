@@ -1,3 +1,4 @@
+import {selectMain} from './main-target.mjs';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import vm from 'node:vm';
@@ -22,9 +23,7 @@ if(action==='check'){
 }
 const targets=await (await fetch(`http://127.0.0.1:${port}/json/list`,{signal:AbortSignal.timeout(5000)})).json();
 if(!Array.isArray(targets))throw Error('Invalid CDP target list');
-const matches=targets.filter(t=>t.type==='page'&&typeof t.url==='string'&&t.url.startsWith('app://-/index.html'));
-if(matches.length>1)throw Error('Multiple Codex main renderers found; refusing to modify an ambiguous window.');
-const target=matches[0];
+const target=selectMain(targets);
 if(!target)throw Error('Codex main renderer unavailable. Open Codex with loopback debugging enabled; this tool never starts or restarts it.');
 const address=new URL(target.webSocketDebuggerUrl);
 if(address.protocol!=='ws:'||!['127.0.0.1','localhost','[::1]'].includes(address.hostname)||Number(address.port)!==port)throw Error('Only the selected local loopback CDP port is allowed.');
