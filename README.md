@@ -6,7 +6,7 @@
 
 ![深潜协议实际效果图](docs/theme-screenshot.jpg)
 
-以上为用户授权发布的实际效果图，账户区域已打码；图中仍包含部分聊天标题、文字和额度。实际界面取决于 Codex 版本、窗口大小和基础主题。
+以上为用户授权发布的实际效果图，账户区域已打码；图中仍包含部分聊天标题、文字和额度。实际界面取决于 Codex 版本、窗口大小及当前界面状态，不要求另装基础主题。
 
 [查看设计示意图](docs/preview.svg)
 
@@ -26,7 +26,9 @@
 要求：Node.js 22 或更新版本；已运行的 Codex 桌面版；仅绑定本机回环地址的 CDP 调试端口（默认 9341）。
 
 1. 配置当前 Codex 版本可用的本机调试入口：启动参数为 `--remote-debugging-address=127.0.0.1 --remote-debugging-port=9341`。如果 Codex 已经运行但未开启该端口，先保存工作，再手动退出并通过带参数的入口启动。Microsoft Store/MSIX 安装的激活方式与普通 exe 可能不同；也可参考 [HeiGe 的启动说明](https://github.com/HeiGeAi/heige-codex-skin-studio)，但**无需在其中选择“深潜协议”**。本脚本不会替你关闭或重启 Codex。
-2. 下载本仓库，或运行：
+2. 点击仓库右上方 **Code → Download ZIP**，或[直接下载最新版 ZIP](https://github.com/zczczzc431/codex-deep-dive-theme/archive/refs/heads/main.zip)。**先完整解压**，再进入解压后的 `codex-deep-dive-theme-main` 文件夹；Windows 可直接双击里面的 `Apply Theme.cmd`。不要在压缩包预览中直接运行脚本。
+
+   使用 Git 下载和命令行应用，也可运行：
 
    ```powershell
    git clone https://github.com/zczczzc431/codex-deep-dive-theme.git
