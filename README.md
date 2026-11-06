@@ -48,6 +48,8 @@
 
 ## 回退、重启与更新
 
+最近维护：[2026-11-06 兼容性检查记录](docs/compatibility-2026-11.md)。已在 CLI `0.166.0-alpha.6` 对应的本机环境检查现有主题与 RAM v4；保留原有主题资产与样式。
+
 ```powershell
 node scripts/theme.mjs remove
 ```
